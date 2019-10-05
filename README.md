@@ -89,7 +89,7 @@ docker-compose run workspace php artisan key:generate
 - [ ] api/customersにGETメソッドでアクセスできる
 - [ ] api/customersにPOSTメソッドでアクセスできる
 - [ ] api/customers/{customer_id}にGETメソッドでアクセスできる
-- [ ] api/customers/{customer_id}にPOSTメソッドでアクセスできる
+- [ ] api/customers/{customer_id}にPUTメソッドでアクセスできる
 - [ ] api/customers/{customer_id}にDELETEメソッドでアクセスできる
 - [ ] api/reportsにGETメソッドでアクセスできる
 - [ ] api/reportsにPOSTメソッドでアクセスできる
