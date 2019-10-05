@@ -137,5 +137,5 @@ public function api_customersにGETメソッドでアクセスできる()
 Route::get('customers', function() {});         // 200 のレスポンスを返す
 ```
 
-- テストを実行し成功することを確認すれば、1つ目の TODO は完了となる
+- テストを実行し成功することを確認すれば TODO は完了となる
 
