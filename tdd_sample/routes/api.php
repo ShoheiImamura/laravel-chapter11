@@ -23,4 +23,3 @@ Route::post('reports', function(){});
 Route::get('reports/{reports_id}', function(){});
 Route::put('reports/{reports_id}', function(){});
 Route::delete('reports/{reports_id}', function(){});
-    
