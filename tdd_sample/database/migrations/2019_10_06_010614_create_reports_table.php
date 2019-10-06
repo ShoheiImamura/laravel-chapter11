@@ -15,7 +15,7 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->increments('id');
-            $table->data('visit_data');
+            $table->date('visit_data');
             $table->integer('customer_id', false, true);
             $table->text('detail');
             $table->timestamps();
