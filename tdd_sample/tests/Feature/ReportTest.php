@@ -8,6 +8,14 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ReportTest extends TestCase
 {
+    use RefreshDatabase; // テストメソッド実行ごとに、DB をリフレッシュ
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->artisan('db:seed', ['--class' => 'TestDataSeeder']);
+    }
+
     /**
      * @test
      */
@@ -21,13 +29,88 @@ class ReportTest extends TestCase
     /**
      * @test
      */
-    public function api_customersにPOSTメソッドでアクセスできる()
+    public function api_customersにGETメソッドでアクセスするとJSONが返却される()
+    {
+        $response = $this->get('api/customers');
+        // 検証部分
+        $this->assertThat($response->content(), $this->isJson());
+    }
+
+    /**
+     * @test
+     */
+    public function api_customersにGETメソッドで取得できる顧客情報のJSON形式は要件通りである()
     {
         // 実行部分
-        $response = $this->post('api/customers');
+        $response = $this->get('api/customers');
+        $customers = $response->json();
+        $customer = $customers[0];
         // 検証部分
+        $this->assertSame(['id', 'name'], array_keys($customer));
+    }
+
+    /**
+     * @test
+     */
+    public function api_customersにGETメソッドでアクセスすると2件の顧客リストが返却される()
+    {
+        // 実行部分
+        $response = $this->get('api/customers');
+        // 検証部分
+        $response->assertJsonCount(2);
+    }
+
+
+
+    /**
+     * @test
+     */
+    public function api_customersにPOSTメソッドでアクセスできる()
+    {
+        // 実行部分 action 
+        $customer = [
+            'name' => 'customer_name',
+        ];
+        $response = $this->postJson('api/customers', $customer);
+
+        // 検証部分 assert
         $response->assertStatus(200);
     }
+
+    /**
+     * @test
+     */
+    public function api_customersに顧客名をPOSTするとcustomersテーブルにそのデータが追加される()
+    {
+        $params = [
+            'name' => '顧客名',
+        ];
+        $this->postJson('api/customers', $params);
+        // 検証部分
+        $this->assertDatabaseHas('customers', $params);
+    }
+
+    /**
+     * @test
+     */
+    public function POST_api_customersにnameがふくまれない場合422UnprocessableEntityが返却される()
+    {
+        $params = [];
+        $response = $this->postJson('api/customers', $params);
+        $response->assertStatus(\Illuminate\Http\Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+    /**
+     * @test
+     */
+    public function POST_api_customersにnameが空の場合422UnprocessableEntityが返却される()
+    {
+        $params = ['name' => ''];
+        $response = $this->postJson('api/customers', $params);
+        $response->assertStatus(\Illuminate\Http\Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+
+
     /**
      * @test
      */

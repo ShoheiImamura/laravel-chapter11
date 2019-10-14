@@ -10,4 +10,13 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+
+    private $customer;
+
+    public function test_function()
+    {
+        $this->customer = new \App\Customer;
+    }
+
 }
