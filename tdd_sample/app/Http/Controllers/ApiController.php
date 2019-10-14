@@ -13,16 +13,12 @@ class ApiController extends Controller
 
     public function postCustomer(\Illuminate\Http\Request $request)
     {
-        // 独自 validation
-        // if(!$request->json('name')){
-        //     return response()->json([], \Illuminate\Http\Response::HTTP_UNPROCESSABLE_ENTITY);
-        // }
-        // $customer = new \App\Customer();
-        // $customer->name = $request->json('name');
-        // $customer->save();
-        
         // laravel の validate メソッドを利用
-        $this->validate($request, ['name' => 'required']);
+        $this->validate(
+            $request,
+            ['name' => 'required'],
+            ['name.required' => ':attribute は必須項目です'] // validate メソッド 第 3 引数にエラーメッセージを指定できる
+        );
         $customer = new \App\Customer();
         $customer->name = $request->json('name');
         $customer->save();
