@@ -13,26 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::get('customers', function(){
-//     return response()->json(\App\Customer::query()->select(['id', 'name'])->get());
-// });
-Route::get('customers', 'ApiController@getCustomers');// 処理を Controller に移設
+Route::get('customers', 'ApiController@getCustomers');
+Route::post('customers', 'ApiController@postCustomer');
 
-// Route::post('customers', function(\Illuminate\Http\Request $request){
-//     if(!$request->json('name')){
-//         return response()->json([], \Illuminate\Http\Response::HTTP_UNPROCESSABLE_ENTITY);
-//     }
-//     $customer = new \App\Customer();
-//     $customer->name = $request->json('name');
-//     $customer->save();
-// });
-Route::post('customers', 'ApiController@postCustomers');
-
-Route::get('customers/{customer_id}', function(){});
-Route::put('customers/{customer_id}', function(){});
-Route::delete('customers/{customer_id}', function(){});
-Route::get('reports', function(){});
-Route::post('reports', function(){});
-Route::get('reports/{reports_id}', function(){});
-Route::put('reports/{reports_id}', function(){});
-Route::delete('reports/{reports_id}', function(){});
+Route::get('customers/{customer_id}','ApiController@getCustomer');
+Route::put('customers/{customer_id}', 'ApiController@putCustomer');
+Route::delete('customers/{customer_id}', 'ApiController@deleteCustomer');
+Route::get('reports', 'ApiController@getReports');
+Route::post('reports', 'ApiController@postReport');
+Route::get('reports/{reports_id}', 'ApiController@getReport');
+Route::put('reports/{reports_id}', 'ApiController@putReport');
+Route::delete('reports/{reports_id}', 'ApiController@deleteReport');
