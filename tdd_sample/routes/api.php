@@ -13,9 +13,10 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('customers', function(){
-    return response()->json(\App\Customer::query()->select(['id', 'name'])->get());
-});
+// Route::get('customers', function(){
+//     return response()->json(\App\Customer::query()->select(['id', 'name'])->get());
+// });
+Route::get('customers', 'ApiController@getCustomers');// 処理を Controller に移設
 Route::post('customers', function(\Illuminate\Http\Request $request){
     if(!$request->json('name')){
         return response()->json([], \Illuminate\Http\Response::HTTP_UNPROCESSABLE_ENTITY);
