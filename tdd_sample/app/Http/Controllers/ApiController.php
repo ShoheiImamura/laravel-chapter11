@@ -16,8 +16,8 @@ class ApiController extends Controller
         // laravel の validate メソッドを利用
         $this->validate(
             $request,
-            ['name' => 'required'],
-            ['name.required' => ':attribute は必須項目です'] // validate メソッド 第 3 引数にエラーメッセージを指定できる
+            ['name' => 'required']
+            // ['name.required' => ':attribute は必須項目です'] // validate メソッド 第 3 引数にエラーメッセージを指定できる
         );
         $customer = new \App\Customer();
         $customer->name = $request->json('name');

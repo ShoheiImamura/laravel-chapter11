@@ -78,7 +78,8 @@ return [
     |
     */
 
-    'locale' => 'en',
+    // 'locale' => 'en',// en → ja に変更する
+    'locale' => 'ja',
 
     'faker_locale' => 'ja_JP', // Fakerの設定を日本語に
 
