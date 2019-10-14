@@ -13,9 +13,16 @@ class ApiController extends Controller
 
     public function postCustomer(\Illuminate\Http\Request $request)
     {
-        if(!$request->json('name')){
-            return response()->json([], \Illuminate\Http\Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
+        // 独自 validation
+        // if(!$request->json('name')){
+        //     return response()->json([], \Illuminate\Http\Response::HTTP_UNPROCESSABLE_ENTITY);
+        // }
+        // $customer = new \App\Customer();
+        // $customer->name = $request->json('name');
+        // $customer->save();
+        
+        // laravel の validate メソッドを利用
+        $this->validate($request, ['name' => 'required']);
         $customer = new \App\Customer();
         $customer->name = $request->json('name');
         $customer->save();
@@ -51,6 +58,6 @@ class ApiController extends Controller
     }
     public function deleteReport()
     {
-        
+
     }
 }
