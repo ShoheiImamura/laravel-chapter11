@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\CustomerService; // 忘れず use
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
-    public function getCustomers()
+    public function getCustomers(CustomerService $customer_service)
     {
-        return response()->json(\App\Customer::query()->select(['id', 'name'])->get());
+        // Service を利用
+        return response()->json($customer_service->getCustomers());
     }
 
     public function postCustomer(\Illuminate\Http\Request $request)
