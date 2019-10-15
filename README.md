@@ -25,7 +25,11 @@
         - [リファクタリングとは](#リファクタリングとは)
         - [リファクタリングを担保するために](#リファクタリングを担保するために)
         - [Route 内の処理を Controller へ](#route-内の処理を-controller-へ)
+            - [移設前](#移設前)
+            - [移設後](#移設後)
+    - [appendix](#appendix)
         - [mysql 8.0  user への権限付与](#mysql-80--user-への権限付与)
+        - [目次作成](#目次作成)
 
 <!-- /TOC -->
 ## サンプルの動作
@@ -254,7 +258,22 @@ $users = factory(App\User::class, 3)
 
 ### Route 内の処理を Controller へ
 
+#### 移設前
 
+- [routes/api.php](https://github.com/ShoheiImamura/laravel-chapter11/blob/9974eaba1c35cf4d68db62740f63cff6409310cb/tdd_sample/routes/api.php)
+
+#### 移設後
+
+- [routes/api.php](https://github.com/ShoheiImamura/laravel-chapter11/blob/19ceaaa007cb10f39b3abd155cf15ca4ca158f93/tdd_sample/routes/api.php)
+
+- [app/Http/Controllers/ApiController](https://github.com/ShoheiImamura/laravel-chapter11/blob/19ceaaa007cb10f39b3abd155cf15ca4ca158f93/tdd_sample/app/Http/Controllers/ApiController.php)
+
+```sh
+# 移設前
+git checkout 9974eaba
+```
+
+## appendix
 
 ### mysql 8.0  user への権限付与
 
@@ -269,3 +288,7 @@ SELECT user, host FROM mysql.user;
 ```sql
 GRANT ALL ON test_database.* TO 'test_user';
 ```
+
+### 目次作成
+
+- [Visual Studio CodeでMarkdown目次(TOC)を作成する便利Plugin](https://qiita.com/bj1024/items/16ec641dc88f74028192)
