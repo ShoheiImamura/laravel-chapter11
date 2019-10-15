@@ -400,6 +400,8 @@ class ReportService
 }
 ```
 
+- route, model は変更なし
+
 ## appendix
 
 ### 本章の sample code
