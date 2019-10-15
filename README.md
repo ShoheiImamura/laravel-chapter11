@@ -26,6 +26,8 @@
         - [リファクタリングを担保するために](#リファクタリングを担保するために)
         - [実装確認（Route 内の処理を Controller へ）](#実装確認route-内の処理を-controller-へ)
         - [実装確認（validation 処理を独自実装から Laravel 機能利用へ）](#実装確認validation-処理を独自実装から-laravel-機能利用へ)
+        - [実装確認（ビジネスロジックを Controller から Service へ）](#実装確認ビジネスロジックを-controller-から-service-へ)
+        - [実装確認（最終形）](#実装確認最終形)
     - [appendix](#appendix)
         - [mysql 8.0  user への権限付与](#mysql-80--user-への権限付与)
         - [目次作成](#目次作成)
@@ -276,6 +278,10 @@ git checkout 4bc1d164
 
 ### 実装確認（validation 処理を独自実装から Laravel 機能利用へ）
 
+- バリデーション内容
+  - 必須項目 "name" をチェックする
+  - リクエスト不正の場合、422:HTTP_UNPROCESSABLE_ENTITY を返却する
+
 - [app/Http/Controllers/ApiController.php](/tdd_sample/app/Http/Controllers/ApiController.php)
 
 ```sh
@@ -285,6 +291,27 @@ git checkout 4bc1d164
 # Laravel 機能(validation()) 利用
 git checkout 5d84e5c3
 ```
+
+- [422 Unprocessable Entity](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/422) とは
+  - ステータスコード：422
+  - content type、syntax は OK
+  - リクエスト内容が NG
+
+### 実装確認（ビジネスロジックを Controller から Service へ）
+
+- [app/Http/Controllers/ApiController.php](/tdd_sample/app/Http/Controllers/ApiController.php)
+- [app/Services/CustomerService.php](/tdd_sample/app/Services/CustomerService.php)
+
+```sh
+# 独自実装
+git checkout 9a306d0f
+
+# Laravel 機能(validation()) 利用
+git checkout 57dbe2a2
+```
+
+### 実装確認（最終形）
+
 
 ## appendix
 
