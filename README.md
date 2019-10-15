@@ -1,7 +1,7 @@
-# テスト駆動開発の実践（前半）
+# テスト駆動開発の実践
 <!-- TOC -->
 
-- [テスト駆動開発の実践（前半）](#テスト駆動開発の実践前半)
+- [テスト駆動開発の実践](#テスト駆動開発の実践)
     - [サンプルの動作](#サンプルの動作)
     - [テスト駆動開発とは](#テスト駆動開発とは)
     - [テスト駆動開発のプロセス概要](#テスト駆動開発のプロセス概要)
@@ -234,7 +234,7 @@ $users = factory(App\User::class, 3)
 - 処理を Route から Controller へ移設
   - Route の役割を、http アクセスのルーティングのみとする
   - まだ controller から model を操作してしまっている
-  
+
 ![](/images/リファクタリング_Controller.png)
 
 ---
@@ -252,7 +252,7 @@ $users = factory(App\User::class, 3)
 
 ### リファクタリングを担保するために
 
-- リファクタリング後にテストを実行する
+- リファクタリング前後にテストを実行する
 - テストが成功の場合、リファクタリングがうまくいっている
   - （外部から見た動作が変わらない）
 - テストが失敗の場合、リファクタリングがうまくいっていない
@@ -324,6 +324,7 @@ git checkout 57dbe2a2
   - api_customers_customer_idに存在しないcustomer_idでGETメソッドでアクセスすると404が返却される
   - api_customers_customer_idにGETメソッドでアクセスすると顧客情報が返却される
   - POST_api_customersのエラーレスポンスの確認
+  # ここから↓
   - POST_api_customersにnameが空の場合422UnprocessableEntityが返却される
   - POST_api_customersにnameが含まれない場合422UnprocessableEntityが返却される
   - api_customersに顧客名をPOSTするとcustomersテーブルにそのデータが追加される
@@ -335,6 +336,7 @@ git checkout 57dbe2a2
   - api_customers_customer_idにGETメソッドでアクセスできる
   - api_customers_customer_idにPUTメソッドでアクセスできる
   - api_customers_customer_idにDELETEメソッドでアクセスできる
+  # ここまで↑ は実装済み
 # ReportTest
   - api_reports_report_idにDELETEメソッドで訪問記録が削除できる
   - api_reports_report_idに存在しないreport_idでPUTメソッドでアクセスすると404が返却される
