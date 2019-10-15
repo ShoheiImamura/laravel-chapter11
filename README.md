@@ -313,6 +313,93 @@ git checkout 57dbe2a2
 
 ### 実装確認（最終形）
 
+- TODO（テストメソッド）リストの追加、分類
+
+```sh
+# CustomerTest
+  - api_customers_customer_idにDELETEメソッドで訪問記録がある顧客の場合
+  - api_customers_customer_idにDELETEメソッドで訪問記録がない顧客が削除できる
+  - api_customers_customer_idに存在しないcustomer_idでPUTメソッドでアクセスすると404が返却される
+  - api_customers_customer_idにPUTメソッドで顧客名が編集できる
+  - api_customers_customer_idに存在しないcustomer_idでGETメソッドでアクセスすると404が返却される
+  - api_customers_customer_idにGETメソッドでアクセスすると顧客情報が返却される
+  - POST_api_customersのエラーレスポンスの確認
+  - POST_api_customersにnameが空の場合422UnprocessableEntityが返却される
+  - POST_api_customersにnameが含まれない場合422UnprocessableEntityが返却される
+  - api_customersに顧客名をPOSTするとcustomersテーブルにそのデータが追加される
+  - api_customersにGETメソッドでアクセスすると2件の顧客リストが返却される
+  - api_customersにGETメソッドで取得できる顧客リストのJSON形式は要件通りである
+  - api_customersにGETメソッドでアクセスするとJSONが返却される
+  - api_customersにGETメソッドでアクセスできる
+  - api_customersにPOSTメソッドでアクセスできる
+  - api_customers_customer_idにGETメソッドでアクセスできる
+  - api_customers_customer_idにPUTメソッドでアクセスできる
+  - api_customers_customer_idにDELETEメソッドでアクセスできる
+# ReportTest
+  - api_reports_report_idにDELETEメソッドで訪問記録が削除できる
+  - api_reports_report_idに存在しないreport_idでPUTメソッドでアクセスすると404が返却される
+  - api_reports_report_idにPUTメソッドで訪問記録が編集できる
+  - api_reports_report_idに存在しないreport_idでGETメソッドでアクセスすると404が返却される
+  - api_reports_report_idにGETメソッドでアクセスすると訪問記録が返却される
+  - POST_api_reportsに存在しないcustomer_idがPOSTされた場合422UnprocessableEntityが返却される
+  - POST_api_reportsにvisit_dateが不正な日付の場合422UnprocessableEntityが返却される($params)
+  - POST_api_reportsに必須データがない場合422UnprocessableEntityが返却される($params)
+  - api_reportsにPOSTするとreportsテーブルにそのデータが追加される
+  - api_reportsにGETメソッドでアクセスすると4件の訪問記録が返却される
+  - api_reportsにGETメソッドで取得できる顧客リストのJSON形式は要件通りである
+  - api_reportsにGETメソッドでアクセスするとJSONが返却される
+  - api_reportsにGETメソッドでアクセスできる
+  - api_reportsにPOSTメソッドでアクセスできる
+  - api_reports_report_idにGETメソッドでアクセスできる
+  - api_reports_report_idにPUTメソッドでアクセスできる
+  - api_reports_report_idにDELETEメソッドでアクセスできる
+```
+
+- Controller 実処理追加
+
+```php
+class ApiController extends Controller
+{
+    public function getCustomers(CustomerService $customer_service);
+    public function postCustomer(Request $request, CustomerService $customer_service);
+    public function getCustomer($customer_id, CustomerService $customer_service);
+    public function putCustomer($customer_id, Request $request, CustomerService $customer_service);
+    public function deleteCustomer($customer_id, CustomerService $customer_service);
+    public function getReports(ReportService $report_service);
+    public function postReport(Request $request, ReportService $report_service);
+    public function getReport($report_id, ReportService $report_service);
+    public function putReport($report_id, Request $request, ReportService $report_service);
+    public function deleteReport($report_id, ReportService $report_service);
+}
+```
+
+- Service 実処理追加、分類
+
+```php
+// CustomerService
+class CustomerService
+{
+    public function getCustomers();
+    public function postCustomer($name);
+    public function getCustomer($customer_id);
+    public function updateCustomer($customer_id, $name);
+    public function exists($customer_id);
+    public function deleteCustomer($customer_id);
+    public function hasReports($customer_id);
+}
+
+// ReportService
+class ReportService
+{
+    public function getReports();
+    public function postReport(array $params);
+    public function getReport($report_id);
+    public function exists($report_id);
+    public function updateReport($report_id, array $params);
+    public function deleteReport($report_id);
+}
+```
+
 ## appendix
 
 ### 本章の sample code
