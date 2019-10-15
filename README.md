@@ -24,9 +24,8 @@
         - [イメージ](#イメージ)
         - [リファクタリングとは](#リファクタリングとは)
         - [リファクタリングを担保するために](#リファクタリングを担保するために)
-        - [Route 内の処理を Controller へ](#route-内の処理を-controller-へ)
-            - [移設前](#移設前)
-            - [移設後](#移設後)
+        - [実装確認（Route 内の処理を Controller へ）](#実装確認route-内の処理を-controller-へ)
+        - [実装確認（validation 処理を独自実装から Laravel 機能利用へ）](#実装確認validation-処理を独自実装から-laravel-機能利用へ)
     - [appendix](#appendix)
         - [mysql 8.0  user への権限付与](#mysql-80--user-への権限付与)
         - [目次作成](#目次作成)
@@ -256,21 +255,35 @@ $users = factory(App\User::class, 3)
 - テストが失敗の場合、リファクタリングがうまくいっていない
   - （外部からみた動作が変わってしまっている）
 
-### Route 内の処理を Controller へ
+### 実装確認（Route 内の処理を Controller へ）
 
-#### 移設前
-
-- [routes/api.php](https://github.com/ShoheiImamura/laravel-chapter11/blob/9974eaba1c35cf4d68db62740f63cff6409310cb/tdd_sample/routes/api.php)
-
-#### 移設後
-
-- [routes/api.php](https://github.com/ShoheiImamura/laravel-chapter11/blob/19ceaaa007cb10f39b3abd155cf15ca4ca158f93/tdd_sample/routes/api.php)
-
-- [app/Http/Controllers/ApiController](https://github.com/ShoheiImamura/laravel-chapter11/blob/19ceaaa007cb10f39b3abd155cf15ca4ca158f93/tdd_sample/app/Http/Controllers/ApiController.php)
+- [routes/api.php](/tdd_sample/routes/api.php)
+- [app/Http/Controllers/ApiController.php](/tdd_sample/app/Http/Controllers/ApiController.php)
 
 ```sh
-# 移設前
+# Route 処理 移設前
 git checkout 9974eaba
+
+# Route 処理 移設後(getCustomers)
+git checkout 19ceaaa0
+
+# Route 処理 移設後(postCustomer)
+git checkout 959f5019
+
+# Route 処理 移設(残りすべて)
+git checkout 4bc1d164
+```
+
+### 実装確認（validation 処理を独自実装から Laravel 機能利用へ）
+
+- [app/Http/Controllers/ApiController.php](/tdd_sample/app/Http/Controllers/ApiController.php)
+
+```sh
+# 独自実装
+git checkout 4bc1d164
+
+# Laravel 機能(validation()) 利用
+git checkout 5d84e5c3
 ```
 
 ## appendix
